@@ -173,8 +173,9 @@ class Audio(
     val albumId: Int,
     val genreId: Int,
     val date: Int,
-    val noSearch: Boolean,
-    val isHq: Boolean
+    val isHq: Boolean,
+    val noSearch: Boolean
+
 
 ) {
     override fun toString(): String {
