@@ -6,7 +6,7 @@ import org.junit.Assert.*
 
 class TaskOneTest {
     @Test
-     fun shouldReturnNewPostWithUniqueId() {
+    fun shouldReturnNewPostWithUniqueId() {
         val service = WallService()
         val defaultPost = Post(
             copyHistory = emptyArray(),
@@ -64,7 +64,64 @@ class TaskOneTest {
         assertFalse(result)
     }
 
+    @Test
+    fun shouldCreateCommentPost() {
+        val service = WallService()
+        val defaultPost = Post(
+            copyHistory = emptyArray(),
+            comments = null,
+            copyright = null,
+            likes = null,
+            reposts = null,
+            geo = null,
+            donut = null,
+            attachments = emptyArray()
+        )
+        var myPost = service.add(defaultPost.copy(text = "Hello from my post", date = 2022))
 
+        val myComment = CommentsPost(
+            id = 1,
+            postId = 1,
+            date = 2022,
+            text = "Пост"
+        )
+
+        service.createComment(myComment)
+        assertEquals(1, service.getComments().size)
+    }
+
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldCreateExceptionCommentPost() {
+        val service = WallService()
+        val defaultPost = Post(
+            copyHistory = emptyArray(),
+            comments = null,
+            copyright = null,
+            likes = null,
+            reposts = null,
+            geo = null,
+            donut = null,
+            attachments = emptyArray()
+        )
+        var myPost = service.add(defaultPost.copy(text = "Hello from my post", date = 2022))
+
+        val myComment = CommentsPost(
+            id = 1,
+            postId = 7,
+            date = 2022,
+            text = "Пост"
+        )
+        service.createComment(myComment)
+    }
 }
+
+
+
+
+
+
+
+
 
 
